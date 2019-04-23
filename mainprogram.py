@@ -83,16 +83,19 @@ def pearlGame(input):
                 list = BWlists[F][3]
 
             if BWlists[F][1] == 0: # ha zöld törpénél van a gyöngy
-                for d in list:
-                    if matrix[d, pearl+1] == 0:
-                        setNext(d)
-                        F = d
+                for d in range(len(list)):
+                    if matrix[list[d], pearl+1] == 0:
+                        setNext(list[d])
+                        F = list[d]
                         pearl += 1
                         break
-                    else:
-                        setNext(list[0])
-                        F = list[0]
-                        pearl += 1
+                    else: 
+                        if not list[d+1]:
+                            setNext(list[0])
+                            F = list[0]
+                            pearl += 1
+                        else:
+                            continue   
             else:
                 F = getNext()
                 pearl += 1
