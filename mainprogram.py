@@ -89,20 +89,17 @@ def pearlGame(input):
                         F = list[d]
                         pearl += 1
                         break
-                    else: 
-                        if not list[d+1]:
-                            setNext(list[0])
-                            F = list[0]
-                            pearl += 1
-                        else:
-                            continue   
+                    elif not d:
+                        setNext(list[0])
+                        F = list[0]
+                        pearl += 1
             else:
                 F = getNext()
                 pearl += 1
 
 
 def main():
-    pearlGame("input.txt")
+    pearlGame(sys.argv[1])
 
 if __name__ == "__main__":
     main()
