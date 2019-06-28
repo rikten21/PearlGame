@@ -94,15 +94,15 @@ def setNext(d):
     global _initialization, _matrix, _L, _N, _F, _necklace, _BWlists, _position
 
     if not _initialization: # az adatok be lettek-e már olvasva
-        _matrix, _L, _N, _F, _necklace, _BWlists = _winnerMatrix("input.txt")
+        _matrix, _L, _N, _F, _necklace, _BWlists = _winnerMatrix(sys.argv[1])
         _initialization = True
 
     if _BWlists[_F][1] == 1: # ha a törpe vörös
-        print("Something is wrong.")
+        print("Something is wrong. - vörös a törpe")
         sys.exit(0)
 
     if _position >= _L: # ha már elfogytak a gyöngyszemek
-        print("Something is wrong.")
+        print("Something is wrong. - elfogytak a gyöngyök")
         sys.exit(0)
 
     if _necklace[_position] == 'B': # fekete vagy fehér gyöngy
@@ -111,7 +111,7 @@ def setNext(d):
         list = _BWlists[_F][3]
 
     if d not in list: # ha a választott törpe ID-ja nem szerepel az adott törpe listáján
-        print("Something is wrong.")
+        print("Something is wrong. - ID nincs a listán")
         sys.exit(0)
 
     _position += 1
@@ -123,15 +123,15 @@ def getNext():
     global _initialization, _matrix, _L, _N, _F, _necklace, _BWlists, _position
 
     if not _initialization: # az adatok be lettek-e már olvasva
-        _matrix, _L, _N, _F, _necklace, _BWlists = _winnerMatrix("input.txt")
+        _matrix, _L, _N, _F, _necklace, _BWlists = _winnerMatrix(sys.argv[1])
         _initialization = True
 
     if _BWlists[_F][1] == 0: # ha a törpe zöld
-        print("Something is wrong.")
+        print("Something is wrong. - zöld törpe jön")
         sys.exit(0)
 
     if _position >= _L: # ha már elfogytak a gyöngyszemek
-        print("Something is wrong.")
+        print("Something is wrong. - elfogytak a gyöngyök")
         sys.exit(0)
 
     if _necklace[_position] == 'B': # fekete vagy fehér gyöngy
@@ -142,9 +142,12 @@ def getNext():
     for i in list:
         if _matrix[i,_position+1] == 1:
             _F = i
+            print("Found red")
             break
         else:
-            _F = list[0]
+            num = int(np.random.randint(0,len(list),(1,1)))
+            _F = list[num]
+            print("Green, list[{}],{}".format(num,_F))
 
     _position += 1
     print("getNext() = {0}".format(_F))
@@ -154,13 +157,13 @@ def finish():
     global _initialization, _matrix, _L, _N, _F, _necklace, _BWlists, _position
 
     if not _initialization: # az adatok be lettek-e már olvasva
-        _matrix, _L, _N, _F, _necklace, _BWlists = _winnerMatrix("input.txt")
+        _matrix, _L, _N, _F, _necklace, _BWlists = _winnerMatrix(sys.argv[1])
         _initialization = True
 
     if _position == _L and _BWlists[_F][1] == 0:
         print("You won.")
 
     else:
-        print("Something is wrong.")
+        print("You lost.")
 
     sys.exit(0)
